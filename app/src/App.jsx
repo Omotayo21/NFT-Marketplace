@@ -9,6 +9,7 @@ function App() {
   const [provider, setProvider] = useState(null);
   const [signer, setSigner] = useState(null);
   const [account, setAccount] = useState('');
+  const [networkName, setNetworkName] = useState('');
   
   // FORM INPUTS
   const [arbiter, setArbiter] = useState('');
@@ -29,13 +30,19 @@ function App() {
         } else {
           setAccount('');
           setSigner(null);
+          setNetworkName('');
         }
+      });
+
+      window.ethereum.on('chainChanged', () => {
+        window.location.reload();
       });
     }
 
     return () => {
       if (window.ethereum && window.ethereum.removeListener) {
         window.ethereum.removeListener('accountsChanged', connectWallet);
+        window.ethereum.removeListener('chainChanged', () => window.location.reload());
       }
     };
   }, []);
@@ -50,6 +57,12 @@ function App() {
         const browserSigner = await browserProvider.getSigner();
         setSigner(browserSigner);
         setAccount(accounts[0]);
+
+        const network = await browserProvider.getNetwork();
+        let name = network.name;
+        if (network.chainId === 11155111n) name = "Sepolia";
+        if (network.chainId === 31337n) name = "Hardhat Local";
+        setNetworkName(name.charAt(0).toUpperCase() + name.slice(1));
       }
     } else {
       alert("Please install MetaMask!");
@@ -123,7 +136,9 @@ function App() {
       <header>
         <h1>Secure Escrow</h1>
         <div className={`connection-pill ${account ? 'active' : ''}`}>
-          {account ? `Connected: ${account.slice(0, 6)}...${account.slice(-4)}` : "Not Connected"}
+          {account 
+            ? `${networkName}: ${account.slice(0, 6)}...${account.slice(-4)}` 
+            : "Not Connected"}
         </div>
       </header>
       
