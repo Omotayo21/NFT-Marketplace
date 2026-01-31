@@ -1,80 +1,67 @@
-# Rahman Coin (RHM) Dashboard 💰🚀
+# 💎 Premium NFT Marketplace
 
-Welcome to the official dashboard for **Rahman Coin (RHM)**, a custom ERC-20 cryptocurrency built on the Ethereum Sepolia Test Network.
+A high-performance, aesthetically stunning NFT Marketplace dApp built with Solidity, React, and Tailwind CSS. This project allows users to mint, list, and trade digital assets on the Ethereum Sepolia testnet.
 
-## 🌐 Live Demo
-[Deploy your dashboard on Vercel to get a link here!]
+![Marketplace Preview](https://via.placeholder.com/1200x600/020617/6366f1?text=NFT+Marketplace+Portfolio+Project)
 
----
+## 🕹️ How it Works
 
-## 📖 For Users: How to Use RHM
+The marketplace operates as a decentralized escrow system:
 
-### 1. Connect Your Wallet
-- Open the dashboard and click **"Connect Wallet"**.
-- Ensure you have the **MetaMask** extension installed.
+1. **Minting**: Users upload an image and metadata to **IPFS** via Pinata. The resulting hash is stored on the **NFT contract**.
+2. **Listing**: The seller approves the **Marketplace contract** to transfer the NFT. The marketplace locks the NFT until it is either sold or the listing is cancelled.
+3. **Trading**: When a buyer purchases an item, the marketplace handles the ETH transfer (including a 1% platform fee) and atomicity transfers the NFT to the buyer.
 
-### 2. Switch to Sepolia
-- If you are on the wrong network, click the **"Switch to Sepolia"** button at the top.
-- RHM lives on the Sepolia Testnet, so it won't show up on Mainnet or Hardhat Local.
+## 📖 Detailed Tutorial
+For a deep dive into the code and architecture, check out the [TUTORIAL.md](file:///c:/Users/hp/Desktop/my%20codes/web3%20projects/solidity/TUTORIAL.md) file!
 
-### 3. Add RHM to MetaMask
-- Open MetaMask and click **"Import tokens"**.
-- Paste the Token Contract Address: `[PASTE YOUR DEPLOYED ADDRESS HERE]`
-- It will auto-fill **RHM** and **18 decimals**.
+## 📦 Getting Started
+... [Rest of installation steps]
 
-### 4. Send Tokens to Friends
-- Paste your friend's wallet address.
-- Enter the amount of RHM to send.
-- Click **"Transfer"** and confirm in MetaMask!
+### 1. Prerequisites
+- Node.js & npm installed
+- MetaMask wallet with some Sepolia ETH
+- Pinata API Keys (for IPFS storage)
 
----
+### 2. Environment Setup
+Create a `.env` file in the root directory:
+```env
+SEPOLIA_URL=your_alchemy_or_infura_url
+PRIVATE_KEY=your_metamask_private_key
+VITE_PINATA_API_KEY=your_pinata_key
+VITE_PINATA_API_SECRET=your_pinata_secret
+```
 
-## 🛠️ For Developers: Build & Deploy
+### 3. Installation
+```bash
+# Install root dependencies
+npm install
 
-### Prerequisites
-- Node.js installed
-- Alchemy API Key (Sepolia)
-- MetaMask Private Key with Sepolia ETH
+# Install frontend dependencies
+cd app
+npm install
+```
 
-### Setup
-1. **Clone the repo:**
-   ```bash
-   git clone https://github.com/Omotayo21/erc20-token.git
-   cd erc20-token
-   ```
-2. **Install dependencies:**
-   ```bash
-   npm install
-   ```
-3. **Configure Environment:**
-   Create a `.env` file in the root:
-   ```env
-   SEPOLIA_URL=https://eth-sepolia.g.alchemy.com/v2/YOUR_API_KEY
-   PRIVATE_KEY=YOUR_PRIVATE_KEY
-   ```
+### 4. Smart Contract Deployment
+To deploy your own contracts to Sepolia:
+```bash
+npx hardhat run scripts/deployMarketplace.js --network sepolia
+```
+*Note: This will automatically update the frontend contract data.*
 
-### Deployment
-1. **Compile the contract:**
-   ```bash
-   npx hardhat compile
-   ```
-2. **Deploy to Sepolia:**
-   ```bash
-   npx hardhat run scripts/deploy.js --network sepolia
-   ```
+### 5. Run the App
+```bash
+cd app
+npm run dev
+```
 
----
+## 📜 Smart Contracts
 
-## 📜 Smart Contract Details
-- **Token Name**: Rahman Coin
-- **Symbol**: RHM
-- **Standard**: ERC-20 (OpenZeppelin)
-- **Decimals**: 18
-- **Network**: Sepolia Testnet
+- **NFT.sol**: ERC-721 contract with URI storage.
+- **Marketplace.sol**: Handles listing logic, ownership transfers, and marketplace fees.
+
+## 🤝 Contributing
+Feel free to fork this project and add your own features, such as auctioning, royalties, or support for multiple chains!
 
 ---
-
-## 🔍 Verification
-You can always verify the total supply and transactions on **[Sepolia Etherscan](https://sepolia.etherscan.io)** by searching for the Token Contract Address.
-
-Built with ❤️ by [Omotayo](https://github.com/Omotayo21)
+*Built for excellence.*
